@@ -1,0 +1,42 @@
+<div id="upload-proj-container" class="row">
+    <div class="col-md-2"></div>
+    <div id="upload-container" class="col-md-3">
+        <form #projUpload="ngForm">
+            <div *ngIf="project | async as proj" id="proj-name" class="form-group">
+                <label for="name">Project Name</label>
+                <input type="text" class="form-control" id="name" [(ngModel)]="proj.name" name="name" #name="ngModel" required>
+                <div [hidden]="(name.valid && name.touched) || (name.pristine && name.untouched) || name.valid" class="alert alert-danger">
+                    Name is required
+                </div>
+            </div>
+
+            {{ project$ | async | json }}
+
+            <div id="work-type" class="form-group">
+                <label for="work">Work Type</label>
+                <div *ngFor="let wo of work">
+                    <input type="text" class="form-control work-type" id="work" name="work" [ngModel]="wo.name" [ngModelOptions]="{ standalone: true }">
+                    <i class="fas fa-times" (click)="deleteWorkType()"></i>
+                </div>
+                <i id="add-wt" class="fas fa-plus-circle" (click)="addWorkType()"></i>
+            </div>
+
+            <div id="proj-descript" class="form-group">
+                <label for="descript">Description</label>
+                <textarea type="text" class="form-control" id="descript" [(ngModel)]="newProject.description" name="descript" #descript="ngModel" required></textarea>
+                <div [hidden]="(descript.valid && descript.touched) || (descript.pristine && descript.untouched) || descript.valid" class="alert alert-danger">
+                    Description is required
+                </div>
+            </div>
+
+            <div id="img-upload" class="form-group">
+                <label for="img">Upload Images</label>
+                <input *ngFor="let img of newProject.img" type="file" class="form-control-file" id="img" (change)="uploadImg($event)">
+                <i id="add-img" class="fas fa-plus-circle" (click)="addImg()"></i>
+            </div>
+
+            <button type="submit" class="btn btn-primary" (click)="submitProject(proj)">Submit</button>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>

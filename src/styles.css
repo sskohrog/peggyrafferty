@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Orator Std Medium';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Orator Std Medium'), url('./assets/OratorStd.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Trade Gothic LT Std';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Trade Gothic LT Std Bold Condensed No. 20'), url('./assets/trade-gothic-lt-std-bold-condensed-no-20-5872def1d27d8.woff') format('woff');
+}
+
+body {
+    overflow-x: hidden;
+}

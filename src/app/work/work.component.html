@@ -1,0 +1,27 @@
+<div id="work-container" class="row">
+    <div class="col-md-2"></div>
+    <div id="work-name" class="col-md-3">
+        {{ project }}
+    </div>
+    <div class="col-md-7"></div>
+
+    <div class="col-md-2"></div>
+    <div class="col-md-2 work-descript">
+        <p *ngFor="let w of workType"> {{ w }} </p>
+    </div>
+    <div class="col-md-1"></div>
+    <div id="spectrum-descript" class="col-md-3 work-descript">
+        <p> {{workDescript}} </p>
+    </div>
+</div>
+<div id="work-slider" class="row">
+    <div class="col-md-2"></div>
+    <div id="carousel" class="col-md-10">
+        <div [class.other]="otherImg" class="carousel-container" *ngFor="let img of workImgs | async">
+            <img class="carousel-img" [src]="img">
+        </div>
+        <div [class.other]="otherImg" class="carousel-container">
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+nav > a {
+    color: #000;
+    font-family: 'Orator Std Medium';
+    position: absolute;
+    margin-top: 3%;
+}
+
+#main-content {
+    position: absolute;
+    top: 22%;
+    width: 98%;
+    height: 76%;
+}
+
+nav.navbar.fixed-top.navbar-light {
+    position: relative;
+}
+
+a#mr {
+    right: 30%;
+}
+
+a#design {
+    right: 7%;
+}
+
+#back {
+    left: 16%;
+}
+
+@media (max-width: 767px) { 
+    #back {
+        left: -5% !important;
+    }
+
+    a#design {
+        right: -6% !important;
+    }
+
+    #mr {
+        right: 23% !important;
+    }
+
+    /* div#main-content {
+        overflow-x: hidden;
+    } */
+ } 

@@ -1,0 +1,21 @@
+.menu-title {
+    font-size: 18px;
+    margin-bottom: 5%;
+    font-family: 'Orator Std Medium';
+    text-transform: lowercase;
+    font-weight: 700;
+}
+
+.menu-container {
+    font-family: 'Orator Std Medium';
+    margin-bottom: 7%;
+    display: inline-grid;
+}
+
+#landing-container {
+    margin-top: 3%;
+}
+.menu-container > a {
+    margin-bottom: 1rem;
+    color: #000;
+}

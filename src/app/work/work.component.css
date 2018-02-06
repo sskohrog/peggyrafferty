@@ -1,0 +1,64 @@
+#work-container {
+    margin-top: 3%;
+}
+
+.work-descript, #work-name, #spectrum-descript {
+    font-family: 'Orator Std Medium';
+}
+
+.work-descript {
+    margin-top: 3%;
+}
+
+#spectrum-descript {
+    max-width: 20%;
+}
+
+#carousel {
+    margin-bottom: 2%;
+    margin-top: 2%;
+    overflow-x: scroll;
+    /* height: 400px; */
+    display: flex;
+}
+
+#work-name {
+    top: 3px;
+}
+
+.carousel-img {
+    height: 400px;
+}
+
+.carousel-img:last-child {
+    margin-right: 100%;
+}
+
+.carousel-container {
+    width: auto !important;
+    margin-right: 2%;
+}
+
+.other:nth-child(4) > img,
+.other:nth-child(5) > img,
+.other:nth-child(6) > img {
+    height: 74%;
+}
+
+@media (max-width: 767px) { 
+    #work-name {
+        margin-bottom: 3% !important;
+    }
+
+    .carousel-img {
+        height: 300px !important;
+    }
+
+    .carousel-img:last-child {
+        margin-right: 97% !important;
+    }
+
+    #work-container {
+        margin-top: -1%;
+    }
+ } 
