@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { DatabaseService } from './database.service';
 
@@ -15,11 +16,13 @@ import { WorkComponent } from './work/work.component';
 import { UploadProjComponent } from './edit-landing/upload-proj/upload-proj.component';
 import { EditLandingComponent } from './edit-landing/edit-landing.component';
 import { PeggyOnlyGuardService } from 'app/peggy-only-guard.service';
+import { ExperienceComponent } from './experience/experience.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
   { path: 'landing', component: LandingComponent },
   { path: 'work/:project', component: WorkComponent },
+  { path: 'experience', component: ExperienceComponent },  
   { path: 'edit', component: EditLandingComponent, canActivate: [PeggyOnlyGuardService] },  
   { path: 'edit/:project', component: UploadProjComponent, canActivate: [PeggyOnlyGuardService] },
   { path: '**', redirectTo: 'landing' }
@@ -39,7 +42,8 @@ export const fbconfig = {
     LandingComponent,
     WorkComponent,
     UploadProjComponent,
-    EditLandingComponent
+    EditLandingComponent,
+    ExperienceComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,7 @@ export const fbconfig = {
     HttpModule,
     AngularFireModule.initializeApp(fbconfig),
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     RouterModule.forRoot(
       routes,
       { enableTracing: false } // debug

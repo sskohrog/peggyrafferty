@@ -1,0 +1,67 @@
+#ex-title,
+.ex-year,
+.ex-container>p,
+#school {
+    font-family: 'Orator Std Medium';
+}
+
+.ex-position,
+.ex-title {
+    font-family: 'Bell Gothic Std Black';
+}
+
+#we-container {
+    margin-top: -3%;
+}
+
+.ex-company {
+    font-weight: 700;
+}
+
+.ex-year {
+    font-size: 1rem;
+    float: right;
+}
+
+.ex-container {
+    margin-bottom: 5%;
+}
+
+p.city {
+    margin-top: 4%;
+}
+
+.ex-container>p {
+    margin-bottom: 0;
+}
+
+.ex-position {
+    position: absolute;
+    left: 11%;
+    font-size: 4.5rem;
+    -webkit-text-stroke: .4px #000;
+    color: #ffebeb;
+}
+
+#cfall-position {
+    top: 73%;
+}
+
+#ca-position {
+    top: 39%;
+}
+
+#rtr-position {
+    top: 6%;
+}
+
+#school {
+    float: right;
+    text-align: right;
+    margin-bottom: 3%;
+    margin-right: 7%;
+}
+
+#school>p {
+    margin-bottom: 0;
+}

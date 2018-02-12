@@ -1,4 +1,4 @@
-nav > a {
+nav>a {
     color: #000;
     font-family: 'Orator Std Medium';
     position: absolute;
@@ -7,9 +7,8 @@ nav > a {
 
 #main-content {
     position: absolute;
-    top: 22%;
-    width: 98%;
-    height: 76%;
+    top: 10%;
+    width: 95%;
 }
 
 nav.navbar.fixed-top.navbar-light {
@@ -25,23 +24,24 @@ a#design {
 }
 
 #back {
-    left: 16%;
+    left: 8%;
+    color: #fff;
+    background-color: #000;
+    padding: 0px 5px;
 }
 
-@media (max-width: 767px) { 
+@media (max-width: 767.98px) {
     #back {
-        left: -5% !important;
+        left: 0% !important;
+        top: 170%;
     }
-
     a#design {
-        right: -6% !important;
+        right: 0% !important;
     }
-
     #mr {
-        right: 23% !important;
+        right: 32% !important;
     }
-
     /* div#main-content {
         overflow-x: hidden;
     } */
- } 
+}

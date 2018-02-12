@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
 import { AngularFireList, AngularFireObject } from 'angularfire2/database/interfaces';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { Observable } from 'rxjs/Observable';
 
 import { Project, WorkType } from './peggy.model';
 
@@ -10,26 +11,36 @@ export class DatabaseService {
 
   showBack: boolean = false;
   showPeggy: boolean = false;
+  hideEmail: boolean = false;  
 
   projImgs$: AngularFireList<any>;
   project$: AngularFireObject<Project>;
   workType$: AngularFireList<WorkType>; 
 
-  constructor(public db: AngularFireDatabase) { }
+  constructor(public db: AngularFireDatabase, private storage: AngularFireStorage) { }
 
   getProjectImgs(proj) {
-    this.projImgs$ = this.db.list<Project>('projectImgs/' + proj);
     return this.db.list('projectImgs/' + proj);
   }
 
   getProject(proj) {
-    this.project$ = this.db.object<Project>('projects/' + proj);
-    return this.project$;
+    return this.db.object<Project>('projects/' + proj);
   }
 
   getWorkType(proj) {
-    this.workType$ = this.db.list<WorkType>('workTypes/' + proj);
-    return this.workType$;
+    return this.db.list<WorkType>('workTypes/' + proj);
   }
+
+  cloudImg(path, event) {
+    this.storage.upload(path, event);
+  }
+
+  saveEmail(email) {
+    this.db.list('emails').push(email).then(
+      () => this.hideEmail = false,
+      (err) => console.log(err)
+    );
+  }
+
 
 }

@@ -6,5 +6,15 @@ export class Project {
 }
 
 export class WorkType {
+    key$: any;
     work: string;
 }
+
+export class Email {
+    name: string;
+    email: string;
+    date: Date;
+    msg: string;
+    html: any;
+}
+

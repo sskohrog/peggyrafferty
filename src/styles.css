@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 @font-face {
     font-family: 'Orator Std Medium';
     font-style: normal;
@@ -13,6 +14,12 @@
     src: local('Trade Gothic LT Std Bold Condensed No. 20'), url('./assets/trade-gothic-lt-std-bold-condensed-no-20-5872def1d27d8.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'Bell Gothic Std Black';
+    src: local('Bell Gothic Std'), url('./assets/BellGothicStd-Black.otf') format('opentype');
+}
+
 body {
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
+    background-color: #ffebeb !important;
 }

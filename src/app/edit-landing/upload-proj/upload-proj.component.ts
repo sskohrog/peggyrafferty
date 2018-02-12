@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+import { AngularFireStorage } from 'angularfire2/storage';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 import { Project, WorkType } from '../../peggy.model';
 import { DatabaseService } from '../../database.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-upload-proj',
@@ -14,52 +16,89 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 export class UploadProjComponent implements OnInit {
 
   project$: AngularFireObject<Project>;
-  // project: Observable<Project>;
-  project: any;
-  urlProj: string;
+  project: Observable<any>;
   workType$: AngularFireList<any>;
-  workType: any;
-  work: any;
+  workType: Observable<any>;
+  keys: Observable<any>;  
+  urlProj: string;
+  ev: string;  
+  image: any;
+  imgs: any;
+  uploadImg$: AngularFireList<any>;
+  uploadPercent: any;
+  downloadUrl: any;
 
-  constructor(private db: DatabaseService, private af: AngularFireDatabase, private route: ActivatedRoute) {
+  currentKey: any;
+
+  constructor(private db: DatabaseService, public af: AngularFireDatabase, private storage: AngularFireStorage, private route: ActivatedRoute, private router: Router) {
     this.db.showBack = false;
     this.db.showPeggy = true;
     this.urlProj = this.route.snapshot.paramMap.get('project');
+    this.imgs = [];
   }
 
   ngOnInit() {
-    this.project$ = this.db.getProject(this.urlProj);
-    this.project = this.af.object('projects/' + this.urlProj).valueChanges().subscribe(next => console.log(next),
-      err => console.log(err),
-      () => console.log('complete')
-    );
+    this.project$ = this.af.object('projects/' + this.urlProj);
+    this.project = this.project$.valueChanges();
+
 
     this.workType$ = this.db.getWorkType(this.urlProj);
-    this.workType = this.db.getWorkType(this.urlProj).valueChanges().subscribe(elem => {
-      this.work = elem;
+    this.workType = this.db.getWorkType(this.urlProj).snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
+
+    this.imgs.push({name: ''});
   }
 
   addWorkType() {
-    this.workType$.push(new WorkType());
+    this.workType$.push({work: ''});
   }
 
-  deleteWorkType(index) {
-    // this.newProject.workType.splice(index,1);
+  updateWorkType(key, work) {
+    console.log(key);
+    this.workType$.update(key,{work: work});
+  }
+
+  deleteWorkType(key) {
+    this.workType$.remove(key);
   }
 
   addImg() {
-    // this.newProject.img.push('');
+   this.imgs.push({name: '', uploadPercent: false});
   }
 
-  uploadImg(event) {
-    console.log(event.target.files[0]);
+  // saveImg(ev, img) {
+  //   this.image = img;
+  //   this.ev = ev;
+  // }
+
+  uploadImg(event, image) {
+    this.uploadImg$ = this.af.list('projectImgs/' + this.urlProj);
+
+    if (this.urlProj === 'film') { this.urlProj = 'photography'; } 
+    else if (this.urlProj === ' other') { this.urlProj = 'other_things'; }
+    
+    var path = 'Projects/' + this.urlProj + '/' + image.name;
+    const task = this.storage.upload(path,event.target.files[0]);
+    this.uploadPercent = task.percentageChanges().subscribe(percent => {
+      if(percent == 100) { image.uploadPercent = true; }     
+    });
+    this.downloadUrl = task.downloadURL().subscribe(url => {
+      this.uploadImg$.push(url);
+    });;
+
+
   }
 
   submitProject(project) {
     console.log(project);
 
-    this.project$.update({ name: project.name })
+    // this.uploadImg(this.ev,this.image);
 
+    this.project$.update({ name: project.name });
+    this.project$.update({ description: project.description });
+
+    this.db.showPeggy = true;
+    this.router.navigate(['/edit']);
   }
 }

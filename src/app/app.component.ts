@@ -10,7 +10,7 @@ import { DatabaseService } from './database.service';
 export class AppComponent {
   peggyCount: number = 0;
 
-  constructor(public db: DatabaseService, private router: Router) {}
+  constructor(public db: DatabaseService, private router: Router) { }
 
   goToAdminTools() {
     if (this.peggyCount == 6) {

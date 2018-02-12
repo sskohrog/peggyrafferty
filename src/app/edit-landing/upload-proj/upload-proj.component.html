@@ -1,8 +1,8 @@
 <div id="upload-proj-container" class="row">
     <div class="col-md-2"></div>
     <div id="upload-container" class="col-md-3">
-        <form #projUpload="ngForm">
-            <div *ngIf="project | async as proj" id="proj-name" class="form-group">
+        <form *ngIf="project | async as proj" #projUpload="ngForm">
+            <div *ngIf="urlProj != 'film'" id="proj-name" class="form-group">
                 <label for="name">Project Name</label>
                 <input type="text" class="form-control" id="name" [(ngModel)]="proj.name" name="name" #name="ngModel" required>
                 <div [hidden]="(name.valid && name.touched) || (name.pristine && name.untouched) || name.valid" class="alert alert-danger">
@@ -10,28 +10,33 @@
                 </div>
             </div>
 
-            {{ project$ | async | json }}
-
-            <div id="work-type" class="form-group">
+            <div *ngIf="urlProj != 'film'" id="work-type" class="form-group">
                 <label for="work">Work Type</label>
-                <div *ngFor="let wo of work">
-                    <input type="text" class="form-control work-type" id="work" name="work" [ngModel]="wo.name" [ngModelOptions]="{ standalone: true }">
-                    <i class="fas fa-times" (click)="deleteWorkType()"></i>
+                <div *ngFor="let wo of workType | async">
+                    <input type="text" class="form-control work-type" id="work-null" name="work" [(ngModel)]="wo.work" (change)="updateWorkType(wo.key,wo.work)" [ngModelOptions]="{ standalone: true }">
+                    <i class="fas fa-times" (click)="deleteWorkType(wo.key)"></i>
                 </div>
                 <i id="add-wt" class="fas fa-plus-circle" (click)="addWorkType()"></i>
             </div>
 
-            <div id="proj-descript" class="form-group">
+            <div *ngIf="urlProj != 'film'" id="proj-descript" class="form-group">
                 <label for="descript">Description</label>
-                <textarea type="text" class="form-control" id="descript" [(ngModel)]="newProject.description" name="descript" #descript="ngModel" required></textarea>
-                <div [hidden]="(descript.valid && descript.touched) || (descript.pristine && descript.untouched) || descript.valid" class="alert alert-danger">
-                    Description is required
-                </div>
+                <textarea type="text" class="form-control" id="descript" [(ngModel)]="proj.description" name="descript" #descript="ngModel"></textarea>
             </div>
 
             <div id="img-upload" class="form-group">
-                <label for="img">Upload Images</label>
-                <input *ngFor="let img of newProject.img" type="file" class="form-control-file" id="img" (change)="uploadImg($event)">
+                <div *ngFor="let img of imgs">
+                    <div *ngIf="!img.uploadPercent">
+                        <label for="img">Image Title</label>
+                        <input type="text" class="form-control" id="file-title" [(ngModel)]="img.name" name="title" #title="ngModel" required>
+                        <label for="img">Upload Images</label>
+                        <input type="file" class="form-control-file" id="img" (change)="uploadImg($event, img)">
+                    </div>
+                    <div *ngIf="img.uploadPercent">
+                        uploaded: {{ img.name }}
+                    </div>
+
+                </div>
                 <i id="add-img" class="fas fa-plus-circle" (click)="addImg()"></i>
             </div>
 

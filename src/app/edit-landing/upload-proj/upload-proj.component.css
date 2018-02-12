@@ -1,6 +1,7 @@
 #upload-proj-container {
     font-family: 'Orator Std Medium';
     text-transform: uppercase;
+    margin-bottom: 6%;
 }
 
 #add-wt {
@@ -25,4 +26,8 @@ i.fas.fa-times {
 #add-img {
     font-size: 1.6rem;
     margin-top: 4%;
+}
+
+#descript {
+    height: 10rem;
 }
